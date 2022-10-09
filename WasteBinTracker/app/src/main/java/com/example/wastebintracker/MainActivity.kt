@@ -40,15 +40,7 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         var autoDate = findViewById<TextView>(R.id.autoDate)
-
-        val c = Calendar.getInstance()
-
-        val year = c.get(Calendar.YEAR)
-        //val strYear = year as String
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
-
-        val curDate = year
-        //autoDate.text = curDate
+        val dateNow = Calendar.getInstance().time
+        autoDate.text = dateNow.toString().dropLast(23)
     }
 }
