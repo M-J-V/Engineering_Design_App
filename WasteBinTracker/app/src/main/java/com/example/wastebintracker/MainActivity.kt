@@ -39,8 +39,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        var autoDate = findViewById<TextView>(R.id.autoDate)
-        val dateNow = Calendar.getInstance().time
-        autoDate.text = dateNow.toString().dropLast(23)
+
     }
 }

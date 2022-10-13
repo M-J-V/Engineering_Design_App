@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.wastebintracker.R
 import com.example.wastebintracker.databinding.FragmentNotificationsBinding
 
 class NotificationsFragment : Fragment() {
@@ -32,6 +33,10 @@ class NotificationsFragment : Fragment() {
         notificationsViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
+
+
+
+
         return root
     }
 

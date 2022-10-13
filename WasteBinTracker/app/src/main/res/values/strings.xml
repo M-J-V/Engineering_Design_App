@@ -3,7 +3,6 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="title_weightData">Weigth Data</string>
     <string name="title_goals">Goals</string>
     <string name="title_weight_data">Weight Data</string>
 </resources>

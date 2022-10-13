@@ -12,7 +12,7 @@
         android:layout_height="48dp"
         android:layout_marginBottom="80dp"
         android:ems="10"
-        android:hint="This is a date"
+        android:hint="This is a Date"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
