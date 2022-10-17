@@ -30,18 +30,12 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        home = inflater.inflate(R.layout.fragment_home, container, false)
-        var autoDate = home.findViewById<TextView>(R.id.autoDate)
+        //home = inflater.inflate(R.layout.fragment_home, container, false)
+        var autoDate = root.findViewById<TextView>(R.id.autoDate)
         val dateNow = Calendar.getInstance().time
         autoDate.setText(dateNow.toString().dropLast(23))
 
-        return home
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-
+        return root
     }
 
     override fun onDestroyView() {
