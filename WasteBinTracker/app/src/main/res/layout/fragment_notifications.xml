@@ -10,7 +10,6 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:text="Your Achievements"
         android:textAlignment="center"
         android:textSize="20sp"
@@ -22,9 +21,8 @@
 
     <ScrollView
         android:id="@+id/scrollview"
-        android:layout_width="407dp"
+        android:layout_width="match_parent"
         android:layout_height="618dp"
-        android:layout_marginTop="35dp"
         android:scrollbarStyle="insideOverlay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,11 +34,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5sp"
-                android:background="#68C4ED"
+                android:background="#EDB35E"
                 android:orientation="vertical"
                 android:padding="5sp">
 
@@ -48,7 +47,7 @@
                     android:id="@+id/textView6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Use the app 10 days"
+                    android:text="Use the app for 10 consecutive days"
                     android:textColor="#000000"
                     android:textSize="20sp" />
 
@@ -65,7 +64,7 @@
                     android:id="@+id/button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Claim" />
+                    android:text="Claim Now!" />
 
             </LinearLayout>
 
@@ -81,7 +80,7 @@
                     android:id="@+id/textView7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Use the app 100 days"
+                    android:text="Empty Bin 5 times"
                     android:textColor="#000000"
                     android:textSize="20sp" />
 
@@ -98,7 +97,7 @@
                     android:id="@+id/button2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Claim" />
+                    android:text="Claim when Completed" />
 
             </LinearLayout>
 
@@ -114,7 +113,7 @@
                     android:id="@+id/textView8"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Produce less then 5 kg waste for 10 days"
+                    android:text="Produce less then 5kg of waste for 10 days"
                     android:textColor="#000000"
                     android:textSize="20sp" />
 
@@ -131,7 +130,7 @@
                     android:id="@+id/button3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Claim" />
+                    android:text="Claim when Completed" />
 
             </LinearLayout>
 
@@ -139,7 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5sp"
-                android:background="#EDB35E"
+                android:background="#68C4ED"
                 android:orientation="vertical"
                 android:padding="5sp">
 
@@ -147,7 +146,7 @@
                     android:id="@+id/textView9"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Personal goal 1: Empty bin every 2 days"
+                    android:text="Personal Goal 1: Produce 10% less waste this week"
                     android:textColor="#000000"
                     android:textSize="20sp" />
 
@@ -164,7 +163,7 @@
                     android:id="@+id/button4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Claim" />
+                    android:text="Claim when Completed" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

@@ -1,17 +1,28 @@
 package com.example.wastebintracker.ui.dashboard
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.*
+import com.example.wastebintracker.R
 import com.example.wastebintracker.databinding.FragmentDashboardBinding
 import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.GridLabelRenderer
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
+import org.json.JSONObject
+import kotlin.random.Random
 
 
 class DashboardFragment : Fragment() {
@@ -26,6 +37,9 @@ class DashboardFragment : Fragment() {
     // on below line we are creating
     // variables for our graph view
     lateinit var lineGraphView: GraphView
+    lateinit var mainHandler: Handler
+
+    var iter = 0
 
 
     override fun onCreateView(
@@ -39,41 +53,29 @@ class DashboardFragment : Fragment() {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val refBtn = root.findViewById(com.example.wastebintracker.R.id.btnRefresh) as Button
+//        val refBtn = root.findViewById(com.example.wastebintracker.R.id.btnRefresh) as Button
+//
+//        refBtn.setOnClickListener(){
+//
+//        }
 
-        refBtn.setOnClickListener(){
-            val new_points = arrayOf(
-                DP(0, 16),
-                DP(5, 25),
-                DP(10, 27),
-                DP(15, 0),
-                DP(20, 4),
-                DP(25, 13),
-                DP(30, 19),
-                DP(35, 21),
-                DP(40, 0),
-                DP(45, 10),
-                DP(50, 12),
-                DP(55, 18),
-                DP(60, 23),
-                DP(65, 0),
-                DP(70, 5),
+        Log.d("Debug","Before find view by ID")
 
-                )
-            val new_series = LineGraphSeries<DataPoint>(new_points)
+        val queue = Volley.newRequestQueue(requireActivity())
 
-            lineGraphView.removeAllSeries()
-            lineGraphView.addSeries(new_series)
-        }
+        Log.d("Debug","Before update TextTask")
+
+        Log.d("Debug","After update TextTask")
+
 
 
         // on below line we are initializing
         // our variable with their ids.
         lineGraphView = root.findViewById(com.example.wastebintracker.R.id.graphView)
 
-        var series_points = load_init_pts()
+        var seriesPoints = load_init_pts()
 
-        val series = LineGraphSeries<DataPoint>(series_points)
+        val series = LineGraphSeries<DataPoint>(seriesPoints)
         // on below line we are adding
         // data series to our graph view.
         lineGraphView.addSeries(series)
@@ -93,6 +95,18 @@ class DashboardFragment : Fragment() {
         gridLabel.setNumHorizontalLabels(8);
         gridLabel.setNumVerticalLabels(4);
 
+        val updateTextTask = object : Runnable {
+            override fun run() {
+                Log.d("Debug","beforefin getRequest")
+                iter = getRequest(lineGraphView, queue, iter)
+                Log.d("Debug","after getRequest")
+                mainHandler.postDelayed(this, 5000)
+            }
+        }
+
+        mainHandler = Handler(Looper.getMainLooper())
+        mainHandler.post(updateTextTask)
+
         return root
     }
 
@@ -100,30 +114,84 @@ class DashboardFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+}
 
-    fun DP(a: Int, b: Int): DataPoint {
-        return DataPoint(a.toDouble()/10, b.toDouble()/10)
+fun DP(a: Double, b: Double): DataPoint {
+    return DataPoint(a.toDouble(), b.toDouble())
+}
+
+fun load_init_pts(): Array<DataPoint>{
+
+    var datapoints: Array<DataPoint> = Array(15){ DataPoint(0.0,0.0) }
+    lateinit var pt: DataPoint
+
+    // Load doubles into array of datapoint to plot
+    datapoints[0] = DP(0.0, 0.0)
+
+    for (i in 1..14){
+        pt = DP(0.5*i, Random.nextDouble(0.0, 2.9))
+        datapoints[i] = pt
     }
 
-    fun load_init_pts(): Array<DataPoint> {
-        val points = arrayOf(
-            DP(0, 0),
-            DP(5, 8),
-            DP(10, 14),
-            DP(15, 16),
-            DP(20, 25),
-            DP(25, 27),
-            DP(30, 0),
-            DP(35, 4),
-            DP(40, 13),
-            DP(45, 19),
-            DP(50, 21),
-            DP(55, 0),
-            DP(60, 10),
-            DP(65, 12),
-            DP(70, 18)
-        )
+    return  datapoints
 
-        return points
+}
+
+fun loadPtsSeries(readings: Array<Double>): Array<DataPoint>{
+
+    var datapts: Array<DataPoint> = Array(15){ DataPoint(0.0,0.0) }
+    lateinit var pt: DataPoint
+
+    // Load doubles into array of datapoint to plot
+    for (i in 0..14){
+        pt = DP(0.5*i, readings[i])
+        datapts[i] = pt
     }
+
+    return  datapts
+}
+
+fun getRequest(lineGraph: GraphView, queue: RequestQueue, iter: Int): Int {
+
+    Log.d("Debug","getRequest Start")
+    //textView.text = "getRequest"
+    val url =
+        "https://api.thingspeak.com/channels/1899295/feeds.json?api_key=XBQ90E955L93FVBV&results=20"
+
+    val stringRequest = StringRequest(
+
+        Request.Method.GET, url,
+
+        Response.Listener { responseString ->
+
+            val jsonArray = JSONObject(responseString).getJSONArray("feeds")
+
+            // Load data points into an array
+            lateinit var feed: JSONObject
+            var readingsArray: Array<Double> = Array(15){0.0}
+            for (i in 0..14){
+                feed = jsonArray.getJSONObject(i+iter)
+                readingsArray.set(i,feed.getString("field1").toDouble())
+            }
+
+            // Load data into array of datpoints
+            var datapoints = loadPtsSeries(readingsArray)
+            var series = LineGraphSeries<DataPoint>(datapoints)
+
+            // Plot data
+            lineGraph.removeAllSeries()
+            lineGraph.addSeries(series)
+
+            Log.d("Out",responseString)
+        },
+
+        Response.ErrorListener { volleyError ->
+            val errorMessage = volleyError.message
+            Log.d("Error","Error Message returned by error listener")
+        }
+    )
+
+    queue.add(stringRequest)
+
+    return (iter+1)%5
 }

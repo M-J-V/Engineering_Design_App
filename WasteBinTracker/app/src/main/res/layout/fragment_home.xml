@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:progress="70"
         android:scaleY="8"
         app:layout_constraintBottom_toTopOf="@+id/autoDate"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Trash is X% full!"
+        android:text="Trash is 70% full!"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBar" />
