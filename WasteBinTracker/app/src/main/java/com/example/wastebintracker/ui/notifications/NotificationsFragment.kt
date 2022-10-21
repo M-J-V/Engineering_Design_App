@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -29,7 +30,11 @@ class NotificationsFragment : Fragment() {
         _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        val reward_btn = root.findViewById(com.example.wastebintracker.R.id.button) as Button
 
+        reward_btn.setOnClickListener(){
+            reward_btn.setText("Interesting Fact: Organic waste is the greatest producer of Methane, which contributes significantly to climate change.")
+        }
 
 
 
