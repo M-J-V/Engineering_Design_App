@@ -195,3 +195,48 @@ fun getRequest(lineGraph: GraphView, queue: RequestQueue, iter: Int): Int {
 
     return (iter+1)%5
 }
+
+//fun getRequest(lineGraph: GraphView, queue: RequestQueue, iter: Int): Int {
+//
+//    Log.d("Debug","getRequest Start")
+//    //textView.text = "getRequest"
+//    val url =
+//        "https://api.thingspeak.com/channels/1899295/feeds.json?api_key=XBQ90E955L93FVBV&results=15"
+//
+//    val stringRequest = StringRequest(
+//
+//        Request.Method.GET, url,
+//
+//        Response.Listener { responseString ->
+//
+//            val jsonArray = JSONObject(responseString).getJSONArray("feeds")
+//
+//            // Load data points into an array
+//            lateinit var feed: JSONObject
+//            var readingsArray: Array<Double> = Array(15){0.0}
+//            for (i in 0..14){
+//                feed = jsonArray.getJSONObject(i)
+//                readingsArray.set(i,feed.getString("field1").toDouble())
+//            }
+//
+//            // Load data into array of datpoints
+//            var datapoints = loadPtsSeries(readingsArray)
+//            var series = LineGraphSeries<DataPoint>(datapoints)
+//
+//            // Plot data
+//            lineGraph.removeAllSeries()
+//            lineGraph.addSeries(series)
+//
+//            Log.d("Out",responseString)
+//        },
+//
+//        Response.ErrorListener { volleyError ->
+//            val errorMessage = volleyError.message
+//            Log.d("Error","Error Message returned by error listener")
+//        }
+//    )
+//
+//    queue.add(stringRequest)
+//
+//    return (iter+1)%5
+//}

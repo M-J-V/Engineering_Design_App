@@ -94,10 +94,10 @@ fun getRequestWeight(queue: RequestQueue, weight: TextView, food:TextView) {
             val sensorReadingWeight = feed.getString("field1")
             val sensorReadingFood = feed.getString("field2")
 
-            weight.text = "Trash Weight: " + sensorReadingWeight + "kg"
+            weight.text = "Current Trash Weight: " + sensorReadingWeight + "kg"
 
             if (sensorReadingFood == "1")
-                food.text = "Trash Rotting: Yes"
+                food.text = "Trash is Rotting: Yes"
             else
                 food.text = "Food Rotting: No"
 
