@@ -1,4 +1,4 @@
-# Engineering_Design_App
+# Engineering_Design_App - Group 167
 
 This repository includes code written to create a mobile application that makes use of the ThingSpeak API for the purpose of creating a 'smart' waste tracking bin.
 
